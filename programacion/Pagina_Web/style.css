@@ -1,0 +1,149 @@
+ /* We keep the same color variables */
+        :root {
+            --primary-color: #2563eb;
+            --primary-hover: #1d4ed8;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+        }
+
+        /* Reset básico */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        /* * CAMBIO EN BODY:
+         * 1. Quitamos padding: 2rem para que la imagen toque los bordes.
+         * 2. Cambiamos display a block (normal flow) para que los elementos
+         * se apilen verticalmente de forma natural.
+         */
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            min-height: 100vh;
+            margin: 0;
+            padding: 0; /* Importante: 0 padding */
+        }
+
+        /* * NUEVOS ESTILOS PARA LA IMAGEN FULL WIDTH:
+         */
+        .hero-image-container {
+            width: 100%;  /* Asegura que el contenedor ocupe todo el ancho */
+            height: 300px; /* Define una altura fija para la imagen, ajústalo a tu gusto */
+            overflow: hidden; /* Corta la imagen si es más grande que la altura definida */
+        }
+
+        .hero-image-container img {
+            width: 100%;  /* La imagen ocupa todo el ancho de su contenedor */
+            height: 100%; /* La imagen ocupa toda la altura del contenedor (300px) */
+            object-fit: cover; /* MAGIA CSS: Hace que la imagen se reescale para cubrir 
+                                   el área sin deformarse (se recorta un poco) */
+            object-position: center; /* Centra la imagen dentro del recorte */
+        }
+
+        /* * NUEVO CONTENEDOR DE CONTENIDO:
+         * A este contenedor le aplicamos el padding y la alineación
+         * que antes tenía el body, para separar el texto de los bordes.
+         */
+        .main-content {
+            padding: 3rem 2rem; /* Separación superior e lateral */
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Centra horizontalmente títulos y grid */
+        }
+
+        /* Mantenemos los mismos estilos para el encabezado */
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+            max-width: 600px;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.025em;
+        }
+
+        .header h2 {
+            font-size: 1.25rem;
+            font-weight: 500;
+            color: var(--text-main);
+            margin-bottom: 1rem;
+        }
+
+        .header p {
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        /* Mantenemos el mismo CSS Grid */
+        .roles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            width: 100%;
+            max-width: 900px;
+        }
+
+        /* Estilos de las tarjetas y hovers (sin cambios) */
+        .role-card {
+            background-color: var(--card-bg);
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 2rem 1.5rem;
+            text-align: center;
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+
+        .role-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary-color);
+            box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.15);
+        }
+
+        .icon-wrapper {
+            background-color: #eff6ff;
+            color: var(--primary-color);
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.25rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .role-card:hover .icon-wrapper {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .icon-wrapper svg {
+            width: 32px;
+            height: 32px;
+        }
+
+        .role-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .role-desc {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            line-height: 1.4;
+        }

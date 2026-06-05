@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SGRSI - Registro de Sala de Informática</title>
+    <link rel="stylesheet" href="style2.css">
+</head>
+<body>
+
+    <div class="container">
+        
+        <img src="logo-iti.png" alt="Banner Instituto" class="banner-instituto">
+        
+        <div class="form-content">
+            
+            <div class="header-title">
+                <h1>SGRSI</h1>
+                <p>Planilla de Registro de Uso de Sala de Informática</p>
+            </div>
+
+            <form action="#" method="POST" id="registroSalaForm">
+                
+                <div class="form-section">
+                    <h3>1. Ubicación y Horario</h3>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="sala">Laboratorio / Taller</label>
+                            <select id="sala" name="sala" required>
+                                <option value="">Seleccione el espacio...</option>
+                                <optgroup label="Laboratorios">
+                                    <option value="lab_1">Laboratorio 1</option>
+                                    <option value="lab_2">Laboratorio 2</option>
+                                    <option value="lab_3">Laboratorio 3</option>
+                                    <option value="lab_4">Laboratorio 4</option>
+                                    <option value="lab_5">Laboratorio 5</option>
+                                    <option value="lab_6">Laboratorio 6</option>
+                                </optgroup>
+                                <optgroup label="Talleres">
+                                    <option value="taller_1">Taller 1</option>
+                                    <option value="taller_2">Taller 2</option>
+                                    <option value="taller_3">Taller 3</option>
+                                </optgroup>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="fecha">Fecha</label>
+                            <input type="date" id="fecha" name="fecha" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="hora_entrada">Hora de Entrada</label>
+                            <input type="time" id="hora_entrada" name="hora_entrada" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="hora_salida">Hora de Salida</label>
+                            <input type="time" id="hora_salida" name="hora_salida">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3>2. Datos Académicos</h3>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="asignatura">Asignatura</label>
+                            <input type="text" id="asignatura" name="asignatura" placeholder="Ej. Sistemas Operativos" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="docente">Docente</label>
+                            <input type="text" id="docente" name="docente" placeholder="Nombre del docente" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="grupo">Grupo</label>
+                            <input type="text" id="grupo" name="grupo" placeholder="Ej. 3º MD" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="turno">Turno</label>
+                            <select id="turno" name="turno" required>
+                                <option value="">Seleccione...</option>
+                                <option value="M">Mañana (M)</option>
+                                <option value="V">Vespertino (V)</option>
+                                <option value="N">Nocturno (N)</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3>3. Registro de Uso por Equipo</h3>
+                    <p style="font-size: 0.85rem; color: #666; margin-top: -10px; margin-bottom: 15px;">
+                        * Registre el estado del equipo al finalizar. Deje en blanco o indique "OK" si no hay incidencias.
+                    </p>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th style="width: 15%; text-align: center;">Nº Equipo</th>
+                                <th style="width: 40%;">Usuario / Estudiante</th>
+                                <th style="width: 45%;">Estado del equipo (Incidencias)</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabla-equipos">
+                            
+                            <tr class="fila-docente">
+                                <td style="text-align: center; font-weight: bold; color: var(--primary-color);">Docente</td>
+                                <td>
+                                    <input type="text" id="usuario_docente_tabla" name="usuario_equipo_docente" class="table-input" placeholder="Nombre del docente..." readonly>
+                                </td>
+                                <td>
+                                    <input type="text" name="estado_equipo_docente" class="table-input" placeholder="Ej. Falla proyector, OK...">
+                                </td>
+                            </tr>
+
+                            </tbody>
+                    </table>
+                </div>
+                <a href="index.html" <button type="submit" class="btn-submit">Guardar Registro en SGRSI</button></a>
+            </form> </div> </div> <script>
+        // DOMContentLoaded asegura que el código JS espere a que todo el HTML se haya dibujado en pantalla
+        document.addEventListener('DOMContentLoaded', function() {
+            
+            // --- 1. GENERADOR DE FILAS (EQUIPOS 1 AL 16) ---
+            const tbody = document.getElementById('tabla-equipos');
+            const totalEquipos = 16;
+
+            // Un bucle "for" que cuenta del 1 al 16
+            for (let i = 1; i <= totalEquipos; i++) {
+                const tr = document.createElement('tr'); // Crea la etiqueta <tr>
+                
+                // Rellena la fila con el número, el input del nombre y el input del estado
+                // La variable ${i} imprime el número actual del bucle (1, 2, 3...)
+                tr.innerHTML = `
+                    <td style="text-align: center; font-weight: bold; color: #555;">${i}</td>
+                    <td>
+                        <input type="text" 
+                               name="estudiante_equipo_${i}" 
+                               class="table-input" 
+                               placeholder="Estudiante en equipo ${i}...">
+                    </td>
+                    <td>
+                        <input type="text" 
+                               name="estado_equipo_${i}" 
+                               class="table-input" 
+                               placeholder="Ej. Mouse no funciona, Sin internet, OK...">
+                    </td>
+                `;
+                
+                // Agrega la fila terminada a la tabla
+                tbody.appendChild(tr);
+            }
+            
+            // --- 2. FECHA AUTOMÁTICA ---
+            // Captura el campo de fecha y le asigna la fecha actual del reloj de la computadora
+            document.getElementById('fecha').valueAsDate = new Date();
+
+            // --- 3. SINCRONIZADOR DEL NOMBRE DEL DOCENTE ---
+            // Capturamos el input de la sección 2 (arriba) y el de la sección 3 (abajo)
+            const inputDocenteArriba = document.getElementById('docente');
+            const inputDocenteTabla = document.getElementById('usuario_docente_tabla');
+
+            // Escuchamos cada vez que se teclea algo en el input de arriba ('input')
+            inputDocenteArriba.addEventListener('input', function() {
+                // Copiamos el texto al input de abajo
+                inputDocenteTabla.value = inputDocenteArriba.value;
+            });
+        });
+    </script>
+    <footer style="text-align: center; padding: 30px 20px; margin-top: 40px; color: #666; font-size: 0.9rem; border-top: 1px solid var(--border-color);">
+        <p style="margin: 5px 0;"><strong>Empresa: </strong>CloudBash</p>
+        <p style="margin: 5px 0;"><strong>Created by: </strong>Antonella Abeldaño, Franco Barros, Israel Guerra, Aliennys Hernandez</p>
+      <a href="https://iti.utu.edu.uy/">Instituto Tecnológico de Informática - UTU</a>
+    </footer>
+</body>
+</html>
